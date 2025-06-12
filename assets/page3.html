@@ -20,6 +20,19 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
+		.divine-orb {
+            position: fixed;
+            width: 60px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.4));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            opacity: 0;
+        }
         
         /* Animated Background Stars */
         .stars {
@@ -637,6 +650,7 @@
     </style>
 </head>
 <body>
+<div class="divine-orb" id="divineOrb"></div>
     <!-- Animated Background -->
     <div class="stars" id="stars"></div>
     
@@ -729,6 +743,31 @@
     </footer>
     
     <script>
+	// Divine orb cursor effect
+        const divineOrb = document.getElementById('divineOrb');
+        let mouseX = 0, mouseY = 0;
+        let orbX = 0, orbY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            divineOrb.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            divineOrb.style.opacity = '0';
+        });
+
+        function animateOrb() {
+            orbX += (mouseX - orbX) * 0.1;
+            orbY += (mouseY - orbY) * 0.1;
+            
+            divineOrb.style.left = orbX - 30 + 'px';
+            divineOrb.style.top = orbY - 30 + 'px';
+            
+            requestAnimationFrame(animateOrb);
+        }
+        animateOrb();
         // Quiz Questions
         const quizQuestions = [
             {
